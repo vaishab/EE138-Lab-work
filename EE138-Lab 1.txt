@@ -1,0 +1,78 @@
+#include "msp.h"
+int sseg_table[17]=
+{
+    0b11000000,0b11111001,0b10100100,0b10110000,
+    0B10011001,0b10010010,0b010000010,0b11111000,
+   0b10000000,0b10010000,0b10001000,0b10000011,
+   0b11000110,0b10100001,0b10000110,0b10001110,
+   0b11111111
+};
+// which digit we're displaying
+int p8_table[4]=
+{
+ 0b00011100,0b00101100,0b00110100,0b00111000
+};
+
+void delay(int i)
+{
+
+for(i =0; i<1000;i++)
+{
+
+}
+}
+
+void main(void)
+{
+    WDT_A->CTL = WDT_A_CTL_PW |
+            WDT_A_CTL_HOLD;
+    int k=0;// stop watchdog timer
+    P8->DIR=0b00111100;
+    P4->DIR=0b11111111;
+
+   while(1)
+        {
+       P4->OUT=sseg_table[16];
+       P8->OUT=p8_table[k];
+       switch (k)
+                 {
+                 case 0:
+                     {
+                         P4->OUT=sseg_table[0]; // output 1
+                         delay(200);
+
+                     }
+                     break;
+
+                 case 1:
+                     {
+                         P4->OUT=sseg_table[1]; // output
+                         delay(200);
+
+                     }
+                     break;
+
+                 case 2:
+                                     {
+                                         P4->OUT=sseg_table[2]; // output
+                                         delay(200);
+
+                                     }
+                                     break;
+
+                 case 3:
+                                     {
+                                         P4->OUT=sseg_table[3]; // output
+                                         delay(200);
+
+                                     }
+                                     break;
+        }
+       k++;
+
+       if (k==4)
+       {k=0;
+       }
+        }
+
+}
